@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useEducation } from './pi/hooks/useData';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Education = () => {
     
     const navigate  = useNavigate();
+    const location = useLocation();
+    let data = location.state;
+    
+
     const {Education, setEducation, formData, setFormData} = useEducation();
 
     const handleChange = (e) => {
@@ -24,6 +28,10 @@ const Education = () => {
         });
     };
 
+    function EducationData(){
+        alert(JSON.stringify(data))
+        navigate('../Skills', {state: {'PrevData': data, 'Education':Education}})
+    }
     return (
         <>
         <nav className="bg-blue-800 p-4 text-white w-full">
@@ -63,7 +71,7 @@ const Education = () => {
 
                     <div className="flex justify-between">
                         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+ Add Education</button>
-                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 p-2 pl-4 pr-4 rounded-lg" onClick={()=> navigate('../Skills')}>Next</button>
+                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 p-2 pl-4 pr-4 rounded-lg" onClick={EducationData}>Next</button>
                     </div> </form>
             </div>
             <div className="w-1/4 p-6 m-5 shadow-xl rounded-xl">

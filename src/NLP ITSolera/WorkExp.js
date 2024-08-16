@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useExp } from './pi/hooks/useData';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const WorkExperience = () => {
     
     const navigate = useNavigate();
+
+    const location = useLocation();
+    const data = location.state;
+    
+
     const {workExperiences, setWorkExperiences, formData, setFormData} = useExp();
     
 
@@ -38,7 +43,7 @@ const WorkExperience = () => {
         else{
             try {
                 alert('fetching Data')
-                const response = await axios.post('/generate_experience', { jobTitle });
+                const response = await axios.post('http://127.0.0.1:5000/generate_experience', { jobTitle });
                 const { suggestions } = response.data;
                 setFormData({ ...formData, comments: suggestions });
                 alert('data Added')
@@ -47,6 +52,11 @@ const WorkExperience = () => {
             }
         }
     };
+
+    function WorkData(){
+        alert(JSON.stringify(data))
+        navigate('../Education', {state: {'PersonalInfo':data, 'Work':workExperiences}})
+    }
 
     return (
         <>
@@ -94,7 +104,7 @@ const WorkExperience = () => {
 
                     <div className="flex justify-between">
                         <button type="submit" onClick={handleSubmit} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+ Add Experience</button>
-                        <button type="button" onClick={()=>{navigate('../Education')}} className="text-white bg-blue-700 hover:bg-blue-800 p-2 pl-4 pr-4 rounded-lg">Next</button>
+                        <button type="button" onClick={WorkData} className="text-white bg-blue-700 hover:bg-blue-800 p-2 pl-4 pr-4 rounded-lg">Next</button>
                     </div> 
                 </form>
             </div>

@@ -11,6 +11,7 @@ import { PersonalInfo } from "./NLP ITSolera/PersonalInfo";
 import WorkExperience from "./NLP ITSolera/WorkExp";
 import Education from "./NLP ITSolera/Education";
 import SkillsForm from "./NLP ITSolera/Skills";
+import Resume from "./NLP ITSolera/Resume";
 
 function App() {
   return(
@@ -21,6 +22,7 @@ function App() {
         <Route path="workExperience" element={<WorkExperience />}></Route>
         <Route path="Education" element={<Education />}></Route>
         <Route path="Skills" element={<SkillsForm />}></Route>
+        <Route path="Resume" element={<Resume />}></Route>
       </Routes>
     </>
       

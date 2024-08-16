@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const suggestionsList = [
     'JavaScript',
@@ -15,6 +16,11 @@ const suggestionsList = [
 ];
 
 const SkillsForm = () => {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const data = location.state;
+
     const [skills, setSkills] = useState([]);
     const [skill, setSkill] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -48,6 +54,11 @@ const SkillsForm = () => {
             setSuggestions([]);
         }
     };
+
+    const SkillsData = () => {
+        alert(JSON.stringify(data))
+        navigate('../Resume', {state: {'PrevData': data, 'Skills':skills}})
+    }
 
 
     // Function to fetch suggestions
@@ -103,7 +114,7 @@ const SkillsForm = () => {
                 </div> */}
                 <div className="flex justify-between">
                     <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Skill</button>
-                    <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 p-2 pl-4 pr-4 rounded-lg">Next</button>
+                    <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 p-2 pl-4 pr-4 rounded-lg" onClick={SkillsData}>Next</button>
                 </div>
             </form>
             <div className="mt-6">
