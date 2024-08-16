@@ -1,7 +1,9 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 export function Login()
 {
+    const navigate = useNavigate()
     return(
         
             <div className="flex items-center justify-center h-screen w-full px-5 sm:px-0">
@@ -42,7 +44,7 @@ export function Login()
                         </a>
                     </div>
                     <div className="mt-8">
-                        <button className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600">
+                        <button className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600" onClick={()=> navigate('personalInformation')}>
                         Login
                         </button>
                     </div>

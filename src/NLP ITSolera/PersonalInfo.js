@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useData } from "./pi/hooks/useData";
+import { useNavigate } from "react-router-dom";
 
 export function PersonalInfo()
 {
@@ -10,6 +11,8 @@ export function PersonalInfo()
         isRemember, setRemember
     } = useData();
 
+    const navigate = useNavigate()
+
     return(
         <div className="font-sans">
             <nav className="bg-blue-800 p-4 text-white w-full">
@@ -18,7 +21,7 @@ export function PersonalInfo()
             <div className="p-6 m-5 shadow-xl rounded-xl">
                 <h2 className="pb-4 text-xl">Let's collect some personal information</h2>
                 <hr />
-                <form>
+                <form onSubmit={()=> navigate('../workExperience')}>
                     <div class="grid gap-6 mb-6 md:grid-cols-2 p-2">
                             <div>
                                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
