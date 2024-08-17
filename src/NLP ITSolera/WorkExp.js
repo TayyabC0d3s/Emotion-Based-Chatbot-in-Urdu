@@ -46,7 +46,6 @@ const WorkExperience = () => {
                 const response = await axios.post('http://127.0.0.1:5000/generate_experience', { jobTitle });
                 const { suggestions } = response.data;
                 setFormData({ ...formData, comments: suggestions });
-                alert('data Added')
             } catch (error) {
                 console.error('Failed to fetch suggestions:', error);
             }
@@ -54,8 +53,12 @@ const WorkExperience = () => {
     };
 
     function WorkData(){
-        alert(JSON.stringify(data))
-        navigate('../Education', {state: {'PersonalInfo':data, 'Work':workExperiences}})
+        if (formData.comments && formData.comments.trim() !== '') {
+            navigate('../Education', {state: {'PersonalInfo':data, 'Work':workExperiences}})
+        }
+        else{
+            alert('Fill the Comments')
+        }
     }
 
     return (

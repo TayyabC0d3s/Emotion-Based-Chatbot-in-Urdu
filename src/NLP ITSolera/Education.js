@@ -29,7 +29,6 @@ const Education = () => {
     };
 
     function EducationData(){
-        alert(JSON.stringify(data))
         navigate('../Skills', {state: {'PrevData': data, 'Education':Education}})
     }
     return (

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, {useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
 
@@ -5,13 +6,24 @@ const Resume = () => {
     const location = useLocation();
     const data = location.state;
 
+    const [summary, setSummary] = useState('');
+
     alert(JSON.stringify(data))
-    console.log(JSON.stringify(data))
 
     const personalInfo = data.PrevData.PrevData.PersonalInfo.Personal;
     const fullName = personalInfo.fullName;
     const email = personalInfo.email;
     const phone = personalInfo.phone;
+
+    useEffect(() => {
+       const fetchSummary = async () => {  
+        const response = await axios.post('http://127.0.0.1:5000/generate_summary', { });
+        setSummary(response.data.summary);
+       }
+            
+       fetchSummary()
+    })
+       
 
     // Extract Work Info
     const workInfo = data.PrevData.PrevData.Work;
@@ -36,38 +48,36 @@ const Resume = () => {
 
 
     return(
-        <div>
+        <div class="p-4 shadow-lg">
             <div>
-                <h1>{fullName}</h1>
+                <h1 className="flex font-xl justify-center align-center">{fullName}</h1>
                 <table>
                     <tr>
                         <th>{email}</th>
                         <th>{phone}</th>
                     </tr>
                 </table>
+                <hr />
             </div>
             <div>
-                Heyyy
+                {summary}
+                <hr />
             </div>
             <div>
             <h2>Work Experience</h2>
+            <hr />
             <table>
-                <thead>
-                    <tr>
-                        <th>Job Title</th>
-                        <th>Duration</th>
-                        <th>Company</th>
-                    </tr>
-                </thead>
                 <tbody>
                     {workInfo.map((work, index) => {
                         const { jobTitle, company, city, country, startDate, endDate, comments } = work;
                         // Calculate duration, e.g., in months or years
-                        const duration = `${startDate} - ${endDate}`;
+                        const duration = `${endDate}`;
                         return (
                             <React.Fragment key={index}>
                                 <tr>
-                                    <td>{jobTitle}</td>
+                                    <th>{jobTitle}</th>
+                                </tr>
+                                <tr>
                                     <td>{duration}</td>
                                     <td>{company}</td>
                                 </tr>
@@ -83,24 +93,21 @@ const Resume = () => {
         <div>
             <h2>Education</h2>
             <table>
-                <thead>
-                    <tr>
-                        <th>Degree</th>
-                        <th>Institute</th>
-                        <th>Duration</th>
-                    </tr>
-                </thead>
                 <tbody>
                     {educationInfo.map((educationInfo, index) => {
                         const { Degree, Institute, city, country, startDate, endDate } = educationInfo;
                         // Display the duration as a concatenated string
                         const duration = `${startDate} - ${endDate}`;
                         return (
+                            <>
                             <tr key={index}>
-                                <td>{Degree}</td>
+                                <th>{Degree}</th>
+                            </tr>
+                            <tr>
                                 <td>{Institute}</td>
                                 <td>{duration}</td>
                             </tr>
+                            </>
                         );
                     })}
                 </tbody>

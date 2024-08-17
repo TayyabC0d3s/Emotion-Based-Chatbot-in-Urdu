@@ -22,8 +22,6 @@ export function PersonalInfo() {
             phone: Phone
         };
 
-        console.log('Navigating with state:', obj);
-
         navigate("/workExperience", { state: { Personal: obj } });
     }
 

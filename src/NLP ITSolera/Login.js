@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 export function Login()
 {
     const navigate = useNavigate()
+
     return(
         
             <div className="flex items-center justify-center h-screen w-full px-5 sm:px-0">
